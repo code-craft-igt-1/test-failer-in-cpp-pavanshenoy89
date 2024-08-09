@@ -20,7 +20,7 @@ class IWeatherSensor {
 
 class SensorStub : public IWeatherSensor {
  public:
-    explicit SensorStub(int humidity = 72, int precipitation = 70, 
+    explicit SensorStub(int humidity = 72, int precipitation = 70,
         double temperature = 26, int windSpeed = 52)
         : humidity_(humidity),
         precipitation_(precipitation),
