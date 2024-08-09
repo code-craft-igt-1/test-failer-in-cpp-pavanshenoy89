@@ -19,11 +19,10 @@ void testPrintColorCodeMap() {
     std::ostringstream oss;
     std::streambuf* oldCoutBuffer = std::cout.rdbuf(oss.rdbuf());
 
-    PrintColorCodeMap();
+    printColorMap();
 
     std::cout.rdbuf(oldCoutBuffer);
-
-    std::string expectedOutput = 
+    std::string expectedOutput =
         "1 | White | Blue\n"
         "2 | White | Orange\n"
         "3 | White | Green\n"
