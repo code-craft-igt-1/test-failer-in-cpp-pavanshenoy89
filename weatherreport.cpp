@@ -19,21 +19,35 @@ class IWeatherSensor {
 /// without needing the actual Sensor during development
 
 class SensorStub : public IWeatherSensor {
+ public:
+    explicit SensorStub(int humidity = 72, int precipitation = 70,
+        double temperature = 26, int windSpeed = 52)
+        : humidity_(humidity),
+        precipitation_(precipitation),
+        temperature_(temperature),
+        windSpeed_(windSpeed) {}
+
     int Humidity() const override {
-        return 72;
+        return humidity_;
     }
 
     int Precipitation() const override {
-        return 70;
+        return precipitation_;
     }
 
     double TemperatureInC() const override {
-        return 26;
+        return temperature_;
     }
 
     int WindSpeedKMPH() const override {
-        return 52;
+        return windSpeed_;
     }
+
+ private:
+    int humidity_;
+    int precipitation_;
+    double temperature_;
+    int windSpeed_;
 };
 
 // This is a function to predict the weather, based on readings
@@ -67,12 +81,12 @@ void TestRainy() {
 void TestHighPrecipitationAndLowWindspeed() {
     // This instance of stub needs to be different-
     // to give high precipitation (>60) and low wind-speed (<50)
-    SensorStub sensor;
+    SensorStub sensor(70, 70, 35, 45);
 
     // strengthen the assert to expose the bug
     // (function returns Sunny day, it should predict rain)
     string report = Report(sensor);
-    assert(report.length() > 0);
+    assert(report.find("rain") != string::npos);
 }
 }  // namespace WeatherSpace
 
